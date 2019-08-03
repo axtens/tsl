@@ -1,0 +1,19 @@
+    NOTE Example Script
+    SHOW ALL
+    DUPLICATES ON
+    BREAKON ()+-*/\`'"~!@#$%^&=,.<>?|[]
+    MESSAGE BREAKS AT ()+-*/\`'"~!@#$%^&=,.<>?|[]
+
+    NOTE Filename taken from commandline.
+    FILE $1
+
+SUBST "end" with "dne" nocase whole confirm
+subst "end;" with ";dne" nocase whole confirm
+SUBST "procedure" with "erudecorp" nocase whole confirm
+subst "function" with "noitcnuf" nocase whole confirm
+
+GO
+END
+
+
+

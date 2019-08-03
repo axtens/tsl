@@ -1,0 +1,91 @@
+TSL (Text Substitution Language) v2.10 (c) Copyright Bruce M. Axtens, 1993.
+
+Syntax:
+        TSL <filename[.TSL]> [filename.ext]
+
+Notes:
+        A .TSL file contains the following commands. (Items in <> are
+mandatory. Items in [] are optional. NOTE, SHOW, DUPLICATES, BREAKON, MESSAGE
+and END are optional. There must be at least one usage of either SUBST or
+CHECK, and at least one usage of FILE and GO
+
+        NOTE [any text]
+        SHOW [LINECOUNT] [LINENUMBERS] [TOTALS] [ALL]
+        DUPLICATES [ON]
+        BREAKON [chars]
+        MESSAGE [text]
+        FILE <filename>
+        CHECK <["]text["]> [NOCASE] [WHOLE]
+        SUBST <["]text["]> WITH <["]text["]> [NOCASE] [NOCONFIRM] [WHOLE]
+        GO
+        END
+
+NOTE is a comment marker and can be used to hide commands from the
+    interpreter. All text following NOTE is ignored during processing.
+
+SHOW causes the program to display various runtime data. LINECOUNT displays a
+    counter of the lines read in for processing. LINENUMBERS shows the line
+    number of the line called up by the CHECK or SUBST routines. TOTALS show
+    the various totals for a given run: lines read, checks defined, substs
+    defined, checks encountered, substs done. ALL implies the selection of
+    LINECOUNT, LINENUMBERS and TOTALS.
+
+DUPLICATES allows the CHECK and SUBST procedures to look for the same word
+    more than once having differing replacement values. ON allows duplicates.
+    Any other word after DUPLICATES, eg. DUPLICATES X, turns off duplicates.
+
+BREAKON adds word separator characters to the internal word separator list.
+    This list is used by SUBST when WHOLE is specified. The list initially
+    contains a space and a tab.
+
+MESSAGE displays the remainder of the command line on the screen.
+
+FILE defines the file being acted upon. FILE will stop with an error if a
+    file has already been defined and a matching GO has not been
+    encountered. If file is defined as $1 then the filename following the
+    script name on the commandline will be inserted.
+
+CHECK checks for the presence of text in each line before it is processed
+    by SUBST. If found a prompt is displayed permitting the user to continue,
+    quit the file, abort the program or display a line identifying the one
+    character keys used to effect these actions. CHECK can be told to ignore
+    case in its search. WHOLE forces CHECK to check for whole words only. See
+    BREAKON to increase the number of delimiters of a word. The default is a
+    space and a tab.
+
+SUBST defines what to delete and what to insert. TSL defaults to confirming
+    the swap and preserving case distinctions is the search. WHOLE permits the
+    search and replace of whole words only. When WHOLE is in effect, SUBST
+    sees a word as being delimited by spaces and tabs. See BREAKON to increase
+    the number of delimiters. When text is found a prompt is displayed
+    permitting the user to swap, ignore, , quit the file, abort the program or
+    display a line identifying the one character keys used to effect these
+    actions. CHECK can be told to ignore case in its search.
+
+GO starts the process. GO will stop with an error if no file has been
+    defined. GO will also stop with an error if no SUBSTs have been
+    defined.
+
+END explicitly ends the script. End of file does the same thing.
+
+
+Example Script:
+
+    NOTE Example Script
+    SHOW ALL
+    DUPLICATES ON
+    BREAKON ()+-*/\`'"~!@#$%^&=,.<>?|[]
+    MESSAGE BREAKS AT ()+-*/\`'"~!@#$%^&=,.<>?|[]
+
+    NOTE Filename taken from commandline.
+    FILE $1
+
+    SUBST "KEYBOARD CHR(255)" WITH "CLEAR TYPEAHEAD" NOCASE
+    SUBST desctiption with Description NOCASE NOCONFIRM WHOLE
+    CHECK Rollo
+
+    GO
+    END
+
+
+

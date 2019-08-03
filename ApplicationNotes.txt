@@ -1,0 +1,17 @@
+sorting of substs/checks not working yet.
+
+definition of substs and checks may possibly be handled using objects (?!)
+
+define function to check for presence of replacing word in file and either
+abort or ask if should abort
+        ONCHECK ABORT|ASK|IGNORE ;global
+        CHECK <txt>              ;local to file/go group
+always process a check before a subst.
+
+define word delimiters and seek for only a word and not
+something in a word.
+
+define filegroups and substgroups
+
+
+

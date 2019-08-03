@@ -1,0 +1,14 @@
+PLAIN
+FILE $1
+SHOW ALL
+CHECK ALLTRIM( noconfirm
+CHECK LEFT(    noconfirm
+CHECK RIGHT(   noconfirm
+CHECK READKEY( noconfirm
+CHECK STRZERO( noconfirm
+CHECK AMPM(    noconfirm
+CHECK DAYS(    noconfirm
+CHECK ELAPTIME( noconfirm
+CHECK SECS(     noconfirm
+CHECK TSTRING(  noconfirm
+GO
